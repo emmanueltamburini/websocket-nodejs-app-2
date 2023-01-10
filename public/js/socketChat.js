@@ -1,11 +1,13 @@
-import { connectHandler, disconnectHandler, sendMessageCallback, sendMessageHandler } from "./handlerSocket.js";
-import { CONNECT, DISCONNECT, SEND_MESSAGE } from "./socketRoutes.js";
+import { connectHandler, disconnectHandler, sendMessageCallback, sendMessageHandler, usersConnectedHandler } from "./handlerSocket.js";
+import { CONNECT, DISCONNECT, SEND_MESSAGE, USERS_CONNECTED } from "./socketRoutes.js";
 
 const socket = io();
 
 socket.on(CONNECT, connectHandler(socket));
 
 socket.on(DISCONNECT, disconnectHandler);
+
+socket.on(USERS_CONNECTED, usersConnectedHandler);
 
 const payload = {
     user: 'testing',

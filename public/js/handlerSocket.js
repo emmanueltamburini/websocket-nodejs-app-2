@@ -31,3 +31,7 @@ export const sendMessageCallback = response => {
 export const sendMessageHandler = message => {
     console.log(SERVER, message);
 };
+
+export const usersConnectedHandler = users => {
+    console.log(users);
+};

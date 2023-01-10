@@ -1,23 +1,11 @@
-import { IS_REQUIRED, NAME } from "../constant/messages.constant.js";
-import { DISCONNECT, ENTER_CHAT, SEND_MESSAGE } from "../constant/routes.constant.js";
-import Users from "../models/users.js";
+import { DISCONNECT, ENTER_CHAT } from "../constant/routes.constant.js";
+import { disconnectHandler, enterChatHandler } from "./handlerSocket.js";
 
-const users = new Users(); 
 
 const socketController = async (socket, io) => {
-    socket.on(ENTER_CHAT, (user, callback) => {
-        if (!callback) callback = () => {};
+    socket.on(ENTER_CHAT, enterChatHandler(socket));
 
-        if (!user.name) {
-            return callback({
-                error: true,
-                message: IS_REQUIRED(NAME)
-            })
-        }
-
-        callback(users.addUser(socket.id, user.name));
-        console.log('=== socket.controller.js [6] ===', user);
-    })
+    socket.on(DISCONNECT, disconnectHandler(socket))
 }
 
 export default socketController;

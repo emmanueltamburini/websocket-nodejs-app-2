@@ -11,7 +11,7 @@ export default class Users {
     }
 
     getUserByID(id) {
-        return  this.users.filter(currentUser => currentUser.id = id)[0];
+        return  this.users.filter(currentUser => currentUser.id === id)[0];
     }
 
     getUsers() {
@@ -24,7 +24,11 @@ export default class Users {
 
     deleteUser(id) {
         let deletedUser = this.getUserByID(id);
-        this.user = this.users.filter(currentUser => currentUser.id !== id);
+        if (!deletedUser) {
+            return null;
+        }
+
+        this.users = this.users.filter(currentUser => currentUser.id !== id);
 
         return deletedUser;
     }
