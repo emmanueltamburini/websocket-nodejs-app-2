@@ -3,7 +3,7 @@ import { CONNECT, DISCONNECT, SEND_MESSAGE } from "./socketRoutes.js";
 
 const socket = io();
 
-socket.on(CONNECT, connectHandler);
+socket.on(CONNECT, connectHandler(socket));
 
 socket.on(DISCONNECT, disconnectHandler);
 

@@ -1,4 +1,6 @@
-export const CONNECTED_TO_SERVER = 'Connected to server';
 export const LOST_CONNECTION = 'Lost connection';
 export const SERVER_RESPONSE = 'Server response: ';
 export const SERVER = 'Server: ';
+
+export const NAME = 'name';
+export const IS_REQUIRED = (element) => `The ${element} is required`;

@@ -1,27 +1,23 @@
-import { USER_CONNECTED, USER_DISCONNECTED } from "../constant/messages.constant.js";
-import { DISCONNECT, SEND_MESSAGE } from "../constant/routes.constant.js";
+import { IS_REQUIRED, NAME } from "../constant/messages.constant.js";
+import { DISCONNECT, ENTER_CHAT, SEND_MESSAGE } from "../constant/routes.constant.js";
+import Users from "../models/users.js";
+
+const users = new Users(); 
 
 const socketController = async (socket, io) => {
-    console.log(USER_CONNECTED);
+    socket.on(ENTER_CHAT, (user, callback) => {
+        if (!callback) callback = () => {};
 
-    const payload = {
-        user: 'Admin testing',
-        message: 'Testing message'
-    };
+        if (!user.name) {
+            return callback({
+                error: true,
+                message: IS_REQUIRED(NAME)
+            })
+        }
 
-    socket.emit(SEND_MESSAGE, payload);
-
-    socket.on(DISCONNECT, () => {
-        console.log(USER_DISCONNECTED);
-    });
-
-    socket.on(SEND_MESSAGE, (data, callback) => {
-        console.log(data);
-
-        io.emit(SEND_MESSAGE, data);
-
-        if(callback) callback("example callback response");
-    });
+        callback(users.addUser(socket.id, user.name));
+        console.log('=== socket.controller.js [6] ===', user);
+    })
 }
 
 export default socketController;
