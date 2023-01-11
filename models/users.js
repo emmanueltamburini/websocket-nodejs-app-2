@@ -3,11 +3,11 @@ export default class Users {
         this.users =  [];
     }
 
-    addUser(id, name) {
-        let user = {id, name};
+    addUser(id, name, room) {
+        let user = {id, name, room};
         this.users.push(user);
 
-        return this.users;
+        return this.users.filter(user => user.room === room);
     }
 
     getUserByID(id) {
@@ -19,7 +19,7 @@ export default class Users {
     }
 
     getUsersByRoom(room) {
-        // TODO
+        return this.users.filter(user => user.room === room);
     }
 
     deleteUser(id) {

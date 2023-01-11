@@ -1,15 +1,16 @@
-import { LOST_CONNECTION, SERVER_RESPONSE, SERVER, NAME, IS_REQUIRED } from "./constant.js";
+import { LOST_CONNECTION, SERVER_RESPONSE, SERVER, NAME, IS_REQUIRED, ROOM } from "./constant.js";
 import { ENTER_CHAT } from "./socketRoutes.js";
 
 const params = new URLSearchParams(window.location.search);
 
-if (!params.has(NAME)) {
+if (!params.has(NAME) || !params.has(ROOM)) {
     window.location = 'index.html';
-    throw new Error(IS_REQUIRED(NAME));
+    throw new Error(IS_REQUIRED(`${NAME} and ${ROOM}`));
 }
 
 const user = {
-    name: params.get(NAME)
+    name: params.get(NAME),
+    room: params.get(ROOM)
 }
 
 export const connectHandler = (socket) => {

@@ -1,4 +1,5 @@
 export const NAME = 'name';
+export const ROOM = 'room';
 export const ADMIN = 'admin';
 
 export const IS_REQUIRED = (element) => `The ${element} is required`;
