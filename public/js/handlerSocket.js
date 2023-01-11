@@ -35,3 +35,9 @@ export const sendMessageHandler = message => {
 export const usersConnectedHandler = users => {
     console.log(users);
 };
+
+export const sendPrivateMessageHandler = (socket) => {
+    return (message) => {
+        console.log(SERVER, message);
+    };  
+};
