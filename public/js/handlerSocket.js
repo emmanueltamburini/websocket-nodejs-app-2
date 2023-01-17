@@ -1,4 +1,5 @@
 import { LOST_CONNECTION, SERVER_RESPONSE, SERVER, NAME, IS_REQUIRED, ROOM } from "./constant.js";
+import { renderMessage, renderUser } from "./socketChatJquery.js";
 import { ENTER_CHAT } from "./socketRoutes.js";
 
 const params = new URLSearchParams(window.location.search);
@@ -18,23 +19,26 @@ export const connectHandler = (socket) => {
 };
 
 export const enterChatCallback = response => {
-    console.log('Users connected', response);
+    renderUser(response, false);
 };
 
 export const disconnectHandler = () => {
     console.log(LOST_CONNECTION);
 };
 
-export const sendMessageCallback = response => {
-    console.log(SERVER_RESPONSE, response);
-};
+export const sendMessageCallback = (text) => {
+    return response => {
+        renderMessage(response, true);
+        text.value = '';
+    };
+} 
 
 export const sendMessageHandler = message => {
-    console.log(SERVER, message);
+    renderMessage(message);
 };
 
 export const usersConnectedHandler = users => {
-    console.log(users);
+    renderUser(users);
 };
 
 export const sendPrivateMessageHandler = (socket) => {
